@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>משחק טריוויה</title>
+</head>
+<body>
+    <div class="game-container">
+        <!-- מסך פתיחה -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <h1>🎯 משחק טריוויה</h1>
+            <p>בחר קטגוריה והתחל לשחק!</p>
+            
+            <div class="category-select">
+                <button class="category-btn" onclick="selectCategory('general')">ידע כללי</button>
+                <button class="category-btn" onclick="selectCategory('science')">מדע וטכנולוגיה</button>
+                <button class="category-btn" onclick="selectCategory('sports')">ספורט</button>
+                <button class="category-btn" onclick="selectCategory('history')">היסטוריה</button>
+            </div>
+            
+            <button class="start-btn" onclick="startGame()" id="startBtn" disabled>התחל משחק</button>
+        </div>
+
+        <!-- מסך המשחק -->
+        <div class="game-screen" id="gameScreen">
+            <div class="timer" id="timer">זמן: 15</div>
+            <div class="score" id="score">ניקוד: 0</div>
+            
+            <div class="question-container">
+                <div class="question-number" id="questionNumber">שאלה 1 מתוך 10</div>
+                <div class="question" id="question">השאלה תופיע כאן</div>
+            </div>
+            
+            <div class="answers" id="answers">
+                <button class="answer-btn">תשובה 1</button>
+                <button class="answer-btn">תשובה 2</button>
+                <button class="answer-btn">תשובה 3</button>
+                <button class="answer-btn">תשובה 4</button>
+            </div>
+            
+            <button class="next-btn" id="nextBtn" onclick="nextQuestion()">שאלה הבאה</button>
+        </div>
+
+        <!-- מסך תוצאות -->
+        <div class="results-screen" id="resultsScreen">
+            <h1>🎉 המשחק הסתיים!</h1>
+            <div class="final-score" id="finalScore">ניקוד סופי: 85 מתוך 100</div>
+            <div id="performanceMessage">🌟 מעולה! אתה מומחה אמיתי!</div>
+            <button class="play-again-btn" onclick="resetGame()">שחק שוב</button>
+        </div>
+    </div>
+    <script src="script.js"></script> 
+</body>
+</html>

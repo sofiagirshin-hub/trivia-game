@@ -1,0 +1,300 @@
+:root{
+  /* פלטת צבעים */
+  --gold: #D4AF37;         /* זהב */
+  --gold-dark: #b8872b;
+  --deep-purple: #7754bc;  /* סגול עמוק */
+  --mid-purple: #9d89c0;   /* סגול בינוני */
+  --lilac: #C7A8E3;        /* לילך */
+  --sky: #9FD3FF;          /* תכלת */
+  --blue: #4a78a9;         /* כחול */
+  --black: #0c0c29;
+  --white: #ffffff;
+  --muted: #f4f4f7;
+  --glass: rgba(255,255,255,0.06);
+
+  /* טיפוגרפיה */
+  --font-sans: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius: 12px;
+  --transition: 200ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* אפס-חוקים בסיסיים */
+* { box-sizing: border-box; }
+html,body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-sans);
+  background: linear-gradient(180deg, #0f0f12 0%, #17121d 100%); /* רקע כהה מעט דינמי */
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  direction: rtl;
+}
+
+/* מיכל המשחק */
+.game-container{
+  max-width: 980px;
+  margin: 36px auto;
+  padding: 28px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(75,46,131,0.14), rgba(43,108,176,0.06));
+  box-shadow:
+    0 6px 20px rgba(10,10,12,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.02);
+  backdrop-filter: blur(6px) saturate(120%);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* כותרת פתיחה */
+.welcome-screen h1{
+  margin: 0 0 8px 0;
+  font-size: 2rem;
+  letter-spacing: 0.6px;
+  color: var(--lilac);
+  text-shadow: 0 2px 12px rgba(107,64,179,0.18);
+}
+
+.welcome-screen p{
+  margin: 0 0 18px 0;
+  color: #e9e6ef;
+  opacity: 0.95;
+}
+/* --- כפתור התחל משחק – למרכז --- */
+.start-btn {
+    background: #e3c567;
+    color: #1e1e1e;
+    display: block;
+    margin: 20px auto;}
+
+
+/* כפתורי קטגוריות */
+.category-select{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.category-btn{
+  background: linear-gradient(180deg, rgba(107,64,179,0.18), rgba(199,168,227,0.06));
+  color: var(--white);
+  border: 1px solid rgba(199,168,227,0.16);
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  font-weight:600;
+  font-size: 0.95rem;
+}
+.category-btn:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(75,46,131,0.12);
+}
+.category-btn.active{
+  background: linear-gradient(90deg, var(--mid-purple), var(--deep-purple));
+  border: 1px solid rgba(212,175,55,0.18);
+  box-shadow: 0 8px 28px rgba(75,46,131,0.24);
+}
+
+/* כפתור התחלת המשחק */
+.start-btn{
+  display:block;
+  margin-top: 8px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+  color: var(--black);
+  border: none;
+  padding: 12px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight:700;
+  box-shadow: 0 8px 30px rgba(212,175,55,0.18);
+  transition: transform var(--transition), opacity var(--transition);
+}
+.start-btn:disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.start-btn:not(:disabled):hover{
+  transform: translateY(-4px);
+}
+
+/* מסך המשחק */
+.game-screen{ 
+  display: none; /* מופיע באמצעות JS */
+  margin-top: 10px;
+}
+
+/* טיימר וניקוד */
+.timer, .score{
+  display:inline-block;
+  padding: 8px 12px;
+  border-radius: 14px;
+  font-weight:700;
+  font-size:0.95rem;
+  color:var(--white);
+  background: linear-gradient(90deg, rgba(11,11,13,0.25), rgba(43,108,176,0.08));
+  border: 1px solid rgba(255,255,255,0.04);
+  margin-left: 10px;
+}
+
+/* מיכל שאלה */
+.question-container{
+  margin-top: 18px;
+  padding: 22px;
+  background: linear-gradient(180deg, rgba(107,64,179,0.08), rgba(199,168,227,0.02));
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 8px 30px rgba(22,12,30,0.45);
+}
+.question-number{
+  font-size: 0.9rem;
+  color: var(--sky);
+  margin-bottom: 8px;
+}
+.question{
+  font-size: 1.3rem;
+  font-weight:700;
+  color: var(--white);
+  line-height: 1.35;
+}
+
+/* תשובות */
+.answers{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+.answer-btn{
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.04));
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 12px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight:600;
+  text-align:center;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  min-height: 54px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  user-select:none;
+}
+
+/* hover & focus */
+.answer-btn:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(43,108,176,0.14);
+}
+.answer-btn:focus{
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(107,64,179,0.12);
+}
+
+/* מצב בחירה */
+.answer-btn.selected{
+  background: linear-gradient(90deg, rgba(107,64,179,0.24), rgba(75,46,131,0.12));
+  border: 1px solid rgba(212,175,55,0.14);
+  transform: translateY(-2px);
+}
+
+/* מצבי נכון / לא נכון (JS תוסיף את המחלקות האלה) */
+.answer-btn.correct{
+  background: linear-gradient(90deg, rgba(157,225,165,0.15), rgba(127,205,135,0.08));
+  border: 1px solid rgba(46,204,113,0.16);
+  color: var(--black);
+  box-shadow: 0 8px 18px rgba(46,204,113,0.08);
+}
+.answer-btn.wrong{
+  background: linear-gradient(90deg, rgba(255,155,155,0.06), rgba(255,110,110,0.03));
+  border: 1px solid rgba(255,80,80,0.12);
+  color: var(--white);
+  opacity: 0.95;
+  transform: translateY(0);
+}
+
+/* כפתור שאלה הבאה */
+.next-btn{
+  margin-top: 18px;
+  background: linear-gradient(90deg, var(--mid-purple), var(--deep-purple));
+  color: var(--white);
+  border: none;
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight:700;
+  box-shadow: 0 12px 30px rgba(75,46,131,0.18);
+  transition: transform var(--transition);
+}
+.next-btn:disabled{
+  opacity:0.4;
+  cursor:not-allowed;
+}
+.next-btn:hover:not(:disabled){
+  transform: translateY(-3px);
+}
+
+/* מסך תוצאות */
+.results-screen{
+  display:none; /* יוצג ע"י JS */
+  text-align:center;
+  padding: 26px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(43,108,176,0.06), rgba(107,64,179,0.04));
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.final-score{
+  margin-top: 10px;
+  font-size: 1.4rem;
+  font-weight:800;
+  color: var(--gold);
+  text-shadow: 0 6px 20px rgba(212,175,55,0.12);
+}
+.play-again-btn{
+  margin-top: 14px;
+  background: transparent;
+  color: var(--sky);
+  border: 1px solid rgba(159,211,255,0.14);
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight:700;
+}
+
+/* אייקונים קטנים / מצב חיים */
+.lives{
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  margin-left: 10px;
+}
+
+/* התאמות למסכים קטנים */
+@media (max-width:720px){
+  .game-container{
+    margin: 18px;
+    padding: 18px;
+  }
+  .answers{
+    grid-template-columns: 1fr;
+  }
+  .question{
+    font-size: 1.15rem;
+  }
+  .welcome-screen h1{
+    font-size: 1.6rem;
+  }
+}
+
+/* אפקטים קטנים לשיפור הנראות */
+.hidden{
+  display:none !important;
+}
+.fade-in{
+  animation: fadeIn 360ms ease forwards;
+}
+@keyframes fadeIn{
+  from{ opacity: 0; transform: translateY(6px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
